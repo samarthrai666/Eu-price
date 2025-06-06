@@ -1,0 +1,12 @@
+{
+    "hooks": [
+        {
+            "name": "dw.ocapi.shop.product.modifyGETResponse",
+            "script": "./cartridge/scripts/hooks/productHooks.js"
+        },
+        {
+            "name": "dw.ocapi.shop.product_search.modifyGETResponse",
+            "script": "./cartridge/scripts/hooks/searchHooks.js"
+        }
+    ]
+}

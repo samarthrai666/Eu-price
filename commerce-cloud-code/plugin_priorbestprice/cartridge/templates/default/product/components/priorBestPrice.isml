@@ -1,0 +1,24 @@
+<iscomment>
+    Use this if/else to adjust the output based on the context
+</iscomment>
+<isif condition="${('items' in pdict) && lineItem && lineItem.priorBestPrice}">
+    <iscomment>Cart/Minicart context</iscomment>
+    <isset name="priorBestPriceProduct" value="${lineItem}" scope="page"/>
+<iselse/>
+    <iscomment>PLP/PDP context</iscomment>
+    <isset name="priorBestPriceProduct" value="${pdict.product}" scope="page"/>
+</isif>
+
+<isif condition="${priorBestPriceProduct && priorBestPriceProduct.priorBestPrice}">
+    <div class="bestprice">
+        <isif condition="${priorBestPriceProduct.priorBestPrice.type === 'range'}">
+            <span class="small">
+                ${Resource.msgf('priorbestprice.message.range', 'priorbestprice', null, priorBestPriceProduct.priorBestPrice.min.sales.formatted, priorBestPriceProduct.priorBestPrice.max.sales.formatted)}
+            </span>
+        <iselseif condition="${priorBestPriceProduct.priorBestPrice.sales}"/>
+            <span class="small">
+                ${Resource.msgf('priorbestprice.message.single', 'priorbestprice', null, priorBestPriceProduct.priorBestPrice.sales.formatted)}
+            </span>
+        </isif>
+    </div>
+</isif>

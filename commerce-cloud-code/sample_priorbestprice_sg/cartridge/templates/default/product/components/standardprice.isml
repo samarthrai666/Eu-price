@@ -1,0 +1,13 @@
+<isset name="StandardPrice" value="${require('*/cartridge/scripts/product/pricing/standardPrice')(PriceModel)}" scope="page"/>
+<isset name="PriorBestPrice" value="${require('*/cartridge/scripts/product/pricing/priorBestPrice')(pdict.Product, pdict.OrgProduct)}" scope="page"/>
+<isset name="SalesPrice" value="${PriceModel.getPrice()}" scope="page"/>
+<isif condition="${!empty(PriorBestPrice)}">
+    <isif condition="${StandardPrice.available && SalesPrice.available && StandardPrice.compareTo(SalesPrice) == 1}">
+    <span class="small">
+            ${Resource.msgf(PriorBestPrice.priceRange ? 'priorbestprice.message.from' : 'priorbestprice.message.single', 'priorbestprice', null, dw.util.StringUtils.formatMoney(PriorBestPrice.money))}
+        </span>
+    </isif>
+    <isif condition="${PriorBestPrice.priceRange}">
+        ${Resource.msgf('priorbestprice.message.from', 'priorbestprice', null, dw.util.StringUtils.formatMoney(PriorBestPrice.money))}
+    </isif>
+</isif>

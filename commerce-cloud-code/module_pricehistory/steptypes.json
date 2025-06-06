@@ -1,0 +1,90 @@
+{
+	"step-types": {
+		"script-module-step": [
+			{
+				"@type-id": "custom.PriceHistory",
+				"module": "module_pricehistory/cartridge/scripts/jobsteps/generatePriceHistory.js",
+				"description": "Adds todays pricehistory to history pricebook",
+				"function": "Run",
+				"parameters": {
+					"parameter": [
+						{
+							"@name": "multiCountryHandling",
+							"@type": "string",
+							"@required": true,
+							"@trim": true,
+							"enum-values": {
+								"value": ["SINGLE_COUNTRY_SITE", "MULTI_COUNTRY_PRICE_BOOKS"]
+							}
+						},
+						{
+							"@name": "countryMapping",
+							"@type": "string",
+							"@required": false,
+							"@trim": true
+						},
+						{
+							"@name": "includePromotions",
+							"@type": "boolean",
+							"@required": false,
+							"@trim": true
+						},
+						{
+							"@name": "daysToKeep",
+							"@type": "long",
+							"@required": false,
+							"@trim": true,
+							"default-value": "30"
+						}
+					]
+				},
+				"status-codes": {
+					"status": [
+						{
+							"@code": "ERROR",
+							"description": "Used when an error occurred."
+						},
+						{
+							"@code": "OK",
+							"description": "Used when execution was successful."
+						}
+					]
+				}
+			},
+			{
+				"@type-id": "custom.PriceChangeGenerator",
+				"module": "module_pricehistory/cartridge/scripts/jobsteps/makeUpPriceChanges.js",
+				"description": "Makes up random Price changes for a random subset of products across all applicable price books.",
+				"function": "Run",
+				"parameters": {
+					"parameter": [
+						{
+							"@name": "Use Site Pricebooks",
+							"@type": "boolean",
+							"@required": "false",
+							"description": "If enabled, the job generates random prices for all Site Pricebooks"
+						},
+						{
+							"@name": "Specific Pricebooks",
+							"@type": "string",
+							"@required": "false",
+							"description": "CSV List of Pricebook IDs. If set, the corresponding pricebooks will be covered."
+						}
+					]
+				},
+				"status-codes": {
+					"status": [
+						{
+							"@code": "ERROR",
+							"description": "Used when an error occurred."
+						},
+						{
+							"@code": "OK",
+							"description": "Used when execution was successful."
+						}
+					]
+				}
+			}
+		]
+	}
+}
